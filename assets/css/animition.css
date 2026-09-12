@@ -1,0 +1,1198 @@
+
+/* HERO SCROLL ANIMATION */
+
+.hero {
+    will-change: transform, opacity;
+}
+
+.hero-content {
+    will-change: transform, opacity;
+}
+
+.hero-bg {
+    will-change: transform;
+    transform-origin: center center;
+}
+
+/* ==============================
+   HERO BADGE SHINE EFFECT
+============================== */
+
+.hero-badge {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+
+.hero-badge::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 60%;
+    height: 100%;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.45),
+        transparent
+    );
+
+    transform: skewX(-25deg);
+
+    animation: badgeShine 3.5s ease-in-out infinite;
+
+}
+
+
+
+@keyframes badgeShine {
+
+    0% {
+        left: -120%;
+    }
+
+    45% {
+        left: 140%;
+    }
+
+    100% {
+        left: 140%;
+    }
+
+}
+
+/* =================================
+   HERO TITLE PREMIUM BLUE MOTION
+================================= */
+
+.hero-section .hero-title span {
+
+    color: transparent !important;
+
+    background: linear-gradient(
+        90deg,
+        #008cff 0%,
+        #008cff 35%,
+        #7ed8ff 50%,
+        #0066cc 65%,
+        #008cff 100%
+    );
+
+    background-size: 300% 100%;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    animation: titleBlueScan 4s ease-in-out infinite;
+
+}
+
+
+
+@keyframes titleBlueScan {
+
+
+    0% {
+
+        background-position: 0% center;
+
+    } 
+
+
+    50% {
+
+        background-position: 100% center;
+
+    }
+
+
+    100% {
+
+        background-position: 0% center;
+
+    }
+
+}
+
+/* =====================================================
+   HERO IMAGE — STABLE FADE
+===================================================== */
+
+.hero-background,
+.hero-mobile-image {
+    opacity: 0;
+
+    animation:
+        hero-image-fade
+        1.2s
+        ease
+        forwards;
+}
+
+
+@keyframes hero-image-fade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* =====================================================
+   STATS ICON — PREMIUM ANIMATED BORDER
+===================================================== */
+
+
+.stats-icon {
+
+    position: relative;
+
+    transform-style: preserve-3d;
+
+    transition:
+        transform 600ms var(--ease-out-expo),
+        box-shadow 600ms ease;
+
+}
+
+
+
+
+/* animated glowing border */
+
+.stats-icon::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -2px;
+
+    border-radius: inherit;
+
+    padding: 2px;
+
+
+    background: conic-gradient(
+
+        from var(--stats-angle, 0deg),
+
+        transparent 0deg,
+
+        rgba(0,140,255,0.15) 20deg,
+
+        rgba(0,140,255,1) 70deg,
+
+        rgba(120,220,255,1) 100deg,
+
+        transparent 160deg
+
+    );
+
+
+    -webkit-mask:
+
+        linear-gradient(#000,#000) content-box,
+
+        linear-gradient(#000,#000);
+
+
+    -webkit-mask-composite: xor;
+
+    mask-composite: exclude;
+
+
+    opacity: 0;
+
+    transition:
+
+        opacity 400ms ease;
+
+
+    pointer-events:none;
+
+}
+
+
+
+
+
+/* activate when scroll reaches section */
+
+.stats-item.is-in-view .stats-icon::before {
+
+
+    opacity:1;
+
+
+    animation:
+
+    stats-border-spin
+
+    3.5s
+
+    linear
+
+    infinite;
+
+
+}
+
+
+
+
+
+@property --stats-angle {
+
+    syntax: "<angle>";
+
+    initial-value:0deg;
+
+    inherits:false;
+
+}
+
+
+
+
+@keyframes stats-border-spin {
+
+
+    to {
+
+        --stats-angle:360deg;
+
+    }
+
+}
+
+
+
+
+
+/* soft glow */
+
+.stats-item.is-in-view .stats-icon {
+
+
+    box-shadow:
+
+    0 0 20px rgba(0,140,255,.35),
+
+    0 0 45px rgba(0,140,255,.15);
+
+
+}
+
+
+
+
+
+/* icon entrance */
+
+.stats-item.is-in-view .stats-icon i {
+
+
+    animation:
+
+    stats-icon-pop
+
+    900ms
+
+    var(--ease-out-back);
+
+
+}
+
+
+
+
+@keyframes stats-icon-pop {
+
+
+    0% {
+
+        transform:
+        scale(.8)
+        rotate(-10deg);
+
+        opacity:0;
+
+    }
+
+
+    60% {
+
+        transform:
+        scale(1.15)
+        rotate(5deg);
+
+    }
+
+
+    100% {
+
+        transform:
+        scale(1)
+        rotate(0);
+
+        opacity:1;
+
+    }
+
+}
+
+/* =========================
+   ABOUT SCROLL REVEAL
+========================= */
+
+.about-left,
+.about-image,
+.about-info {
+
+    opacity: 0;
+
+    transition:
+    opacity 1s ease,
+    transform 1s cubic-bezier(.16,1,.3,1);
+
+}
+
+
+.about-left {
+    transform: translateX(-60px);
+}
+
+
+.about-image {
+    transform: translateY(40px) scale(.96);
+}
+
+
+.about-info {
+    transform: translateX(60px);
+}
+
+
+
+/* ACTIVE */
+
+.about-section.active .about-left,
+.about-section.active .about-image,
+.about-section.active .about-info {
+
+    opacity:1;
+
+    transform:translate(0) scale(1);
+
+}
+
+@media (max-width:768px){
+
+    .about-section.active .about-info {
+
+        opacity:1 !important;
+
+        transform:
+        translateY(0) !important;
+
+    }
+
+
+    .about-section.active .info-item {
+
+        opacity:1 !important;
+
+        transform:
+        translateY(0) !important;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .info-item {
+
+        opacity:0;
+
+        transform:translateY(30px);
+
+        transition:
+        opacity .7s ease,
+        transform .7s ease;
+
+    }
+
+
+    .about-section.active .info-item {
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+
+    .about-section.active .info-item:nth-child(1){
+        transition-delay:.1s;
+    }
+
+    .about-section.active .info-item:nth-child(2){
+        transition-delay:.2s;
+    }
+
+    .about-section.active .info-item:nth-child(3){
+        transition-delay:.3s;
+    }
+
+    .about-section.active .info-item:nth-child(4){
+        transition-delay:.4s;
+    }
+
+}
+
+/* =================================
+   SERVICES SCROLL REVEAL
+================================= */
+
+
+.services-head {
+
+    opacity:0;
+
+    transform:translateY(20px);
+
+    transition:
+    .7s ease;
+
+}
+
+
+.service-card {
+
+    opacity:0;
+
+    transition:
+    opacity .7s ease,
+    transform .7s ease;
+
+}
+
+
+/* active */
+
+.services-section.active .services-head {
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+
+
+.services-section.active .service-card {
+
+    opacity:1;
+
+}
+
+
+
+/* stagger */
+
+.services-section.active .service-card:nth-child(1){
+    transition-delay:.1s;
+}
+
+.services-section.active .service-card:nth-child(2){
+    transition-delay:.2s;
+}
+
+.services-section.active .service-card:nth-child(3){
+    transition-delay:.3s;
+}
+
+.services-section.active .service-card:nth-child(4){
+    transition-delay:.4s;
+}
+
+/* =====================================================
+   BANNER — CINEMATIC IMAGE MOTION
+===================================================== */
+
+
+.banner-section {
+
+    overflow:hidden;
+
+}
+
+
+.banner-image {
+
+    width:100%;
+
+    display:block;
+
+    transform:
+    scale(1.12)
+    translateY(20px);
+
+    opacity:.7;
+
+    transition:
+    transform 1.8s cubic-bezier(.16,1,.3,1),
+    opacity 1.2s ease;
+
+}
+
+
+
+.banner-section.active .banner-image {
+
+
+    transform:
+    scale(1)
+    translateY(0);
+
+    opacity:1;
+
+}
+
+/* =====================================================
+   SKILLS — SCROLL FADE + INFINITE MOTION
+===================================================== */
+
+
+/* TITLE FADE */
+
+.skills-section .services-head {
+
+    opacity:0;
+
+    transform:translateY(25px);
+
+    transition:
+    opacity 800ms ease,
+    transform 800ms ease;
+
+}
+
+
+.skills-section.active .services-head {
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+
+
+
+/* INFINITE MARQUEE */
+
+.skills-track {
+
+    animation:
+    skillsMove 60s linear infinite;
+
+}
+
+
+
+.skills-track--reverse {
+
+    animation-direction:reverse;
+
+    animation-duration:72s;
+
+}
+
+
+
+
+@keyframes skillsMove {
+
+
+    from {
+
+        transform:
+        translateX(0);
+
+    }
+
+
+    to {
+
+        transform:
+        translateX(-50%);
+
+    }
+
+}
+
+/* =====================================================
+   PROJECTS — PREMIUM CARD REVEAL
+===================================================== */
+
+
+.projects-head {
+
+    opacity:0;
+
+    transform:
+    translateY(15px);
+
+    transition:
+
+    opacity 1s cubic-bezier(.16,1,.3,1),
+    transform 1s cubic-bezier(.16,1,.3,1);
+
+}
+
+
+
+
+.project-card {
+
+    opacity:0;
+
+    transform:
+
+    translateY(25px)
+    scale(.98);
+
+
+    transition:
+
+    opacity 1s cubic-bezier(.16,1,.3,1),
+    transform 1s cubic-bezier(.16,1,.3,1);
+
+}
+
+
+
+/* ACTIVE */
+
+
+.projects-section.active .projects-head {
+
+
+    opacity:1;
+
+    transform:
+    translateY(0);
+
+}
+
+
+
+
+
+.projects-section.active .project-card {
+
+
+    opacity:1;
+
+    transform:
+
+    translateY(0)
+    scale(1);
+
+}
+
+
+
+
+
+/* delay */
+
+
+.projects-section.active .project-card:nth-child(1){
+
+    transition-delay:.15s;
+
+}
+
+
+.projects-section.active .project-card:nth-child(2){
+
+    transition-delay:.3s;
+
+}
+
+
+.projects-section.active .project-card:nth-child(3){
+
+    transition-delay:.45s;
+
+}
+
+/* =====================================================
+   CONTACT SECTION — SMOOTH SIDE REVEAL
+===================================================== */
+
+
+.contact-form-card,
+.contact-info-card {
+
+    opacity: 0;
+
+    transition:
+    opacity 1s cubic-bezier(.16,1,.3,1),
+    transform 1s cubic-bezier(.16,1,.3,1);
+
+}
+
+
+
+/* initial position */
+
+
+.contact-form-card {
+
+    transform:
+    translateX(-80px);
+
+}
+
+
+
+.contact-info-card {
+
+    transform:
+    translateX(80px);
+
+}
+
+
+
+
+
+/* active */
+
+.contact-section.active .contact-form-card {
+
+    opacity:1;
+
+    transform:
+    translateX(0);
+
+}
+
+
+
+.contact-section.active .contact-info-card {
+
+    opacity:1;
+
+    transform:
+    translateX(0);
+
+}
+
+/* =====================================================
+   CONTACT INFO CARD — FULL MOVING BORDER
+===================================================== */
+
+.contact-info-card {
+
+    position: relative;
+
+    transform-style: preserve-3d;
+
+}
+
+
+.contact-info-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -1px;
+
+    border-radius: inherit;
+
+    padding: 2px;
+
+    background: conic-gradient(
+        from var(--contact-angle, 0deg),
+        transparent 0deg,
+        transparent 35deg,
+        rgba(0, 140, 255, 0.15) 45deg,
+        rgba(0, 140, 255, 1) 75deg,
+        rgba(120, 220, 255, 1) 100deg,
+        transparent 140deg,
+        transparent 360deg
+    );
+
+    -webkit-mask:
+        linear-gradient(#000, #000) content-box,
+        linear-gradient(#000, #000);
+
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+@property --contact-angle {
+
+    syntax: "<angle>";
+
+    initial-value: 0deg;
+
+    inherits: false;
+
+}
+
+
+.contact-section.active .contact-info-card::before {
+
+    opacity: 1;
+
+    animation:
+        contact-border-spin
+        3.5s
+        linear
+        infinite;
+
+}
+
+
+@keyframes contact-border-spin {
+
+    to {
+
+        --contact-angle: 360deg;
+
+    }
+
+}
+
+.footer-section {
+
+    opacity:0;
+
+    transform:translateY(80px);
+
+    transition:
+    all 1.2s ease;
+
+}
+
+
+.footer-section.active {
+
+    opacity:1 !important;
+
+    transform:translateY(0) !important;
+
+}
+
+
+/* =========================================
+   PREMIUM CURSOR SPOTLIGHT
+========================================= */
+
+.cursor-spotlight {
+    position: fixed;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+
+    background: radial-gradient(
+        circle,
+        rgba(59, 130, 246, 0.085) 0%,
+        rgba(37, 99, 235, 0.045) 25%,
+        rgba(37, 99, 235, 0.018) 48%,
+        transparent 72%
+    );
+
+    transform: translate(-50%, -50%);
+    filter: blur(8px);
+
+    will-change: transform;
+}
+
+
+/* =========================================
+   PREMIUM CURSOR PARTICLES
+========================================= */
+
+.cursor-particle {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+
+    background: rgba(147, 197, 253, 0.75);
+
+    box-shadow:
+        0 0 6px rgba(96, 165, 250, 0.55),
+        0 0 14px rgba(37, 99, 235, 0.25);
+
+    transform: translate(-50%, -50%);
+    animation: cursorParticleFade 650ms ease-out forwards;
+
+    will-change: transform, opacity;
+}
+
+@keyframes cursorParticleFade {
+    0% {
+        opacity: 0.75;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    40% {
+        opacity: 0.45;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.15);
+    }
+}
+
+
+/* دسکتاپ فقط */
+@media (max-width: 768px) {
+    .cursor-spotlight,
+    .cursor-particle {
+        display: none;
+    }
+}
+
+/* =====================================================
+   PREMIUM SOFT BLUE SCROLLBAR
+===================================================== */
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(22,139,255,.55) rgba(0,0,0,.18);
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0,0,0,.18);
+}
+
+::-webkit-scrollbar-thumb {
+
+    background: linear-gradient(
+        180deg,
+        rgba(22,139,255,.72),
+        rgba(22,139,255,.52),
+        rgba(22,139,255,.68)
+    );
+
+    border-radius: 999px;
+
+    border: 1px solid rgba(120,190,255,.65);
+
+    box-shadow:
+        0 0 5px rgba(22,139,255,.18);
+}
+
+::-webkit-scrollbar-thumb:hover {
+
+    background: linear-gradient(
+        180deg,
+        rgba(22,139,255,.82),
+        rgba(22,139,255,.62),
+        rgba(22,139,255,.76)
+    );
+
+    border-color: rgba(145,205,255,.8);
+
+    box-shadow:
+        0 0 8px rgba(22,139,255,.28);
+}
+
+/* =====================================================
+   SUCCESS MODAL — PREMIUM MOTION
+===================================================== */
+
+.success-modal {
+    transition:
+        opacity .35s ease,
+        visibility .35s ease;
+}
+
+.success-modal-content {
+    opacity: 0;
+
+    transform:
+        translateY(22px)
+        scale(.96);
+
+    transition:
+        opacity .55s cubic-bezier(.16,1,.3,1),
+        transform .55s cubic-bezier(.16,1,.3,1);
+}
+
+.success-modal.active .success-modal-content {
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* ICON */
+
+.success-icon {
+    opacity: 0;
+
+    transform:
+        scale(.75);
+}
+
+.success-modal.active .success-icon {
+    animation:
+        successIconPop
+        .7s
+        cubic-bezier(.34,1.56,.64,1)
+        .15s
+        forwards;
+}
+
+@keyframes successIconPop {
+
+    0% {
+        opacity: 0;
+        transform: scale(.75);
+    }
+
+    70% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
+/* TEXT + BUTTON */
+
+.success-modal-content h3,
+.success-modal-content p,
+.success-modal-content button {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.success-modal.active .success-modal-content h3 {
+    animation: modalContentFade .5s ease .28s forwards;
+}
+
+.success-modal.active .success-modal-content p {
+    animation: modalContentFade .5s ease .38s forwards;
+}
+
+.success-modal.active .success-modal-content button {
+    animation: modalContentFade .5s ease .48s forwards;
+}
+
+@keyframes modalContentFade {
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+/* ==============================
+   PERF + MOTION LITE (Iran / Save-Data)
+============================== */
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+.motion-lite .hero-badge::before,
+.motion-lite .cursor-spotlight,
+.motion-lite .cursor-particle {
+    display: none !important;
+    animation: none !important;
+}
+
+.motion-lite .hero-section .hero-title span,
+.motion-lite .services-title span,
+.motion-lite .projects-title span,
+.motion-lite .skills-section .services-title span {
+    animation: none !important;
+    background-size: 100% 100% !important;
+}
+
+/* Smoother reveal defaults */
+.about-section:not(.active) .about-left,
+.about-section:not(.active) .about-image,
+.about-section:not(.active) .about-info,
+.services-section:not(.active) .service-card,
+.projects-section:not(.active) .project-card,
+.skills-section:not(.active) .skills-track,
+.contact-section:not(.active) .contact-form-card,
+.contact-section:not(.active) .contact-side,
+.banner-section:not(.active) .banner-image,
+.footer-section:not(.active) {
+    will-change: transform, opacity;
+}
+
+.hero-content {
+    transition: opacity 0.15s linear;
+    backface-visibility: hidden;
+}
+
+/* GPU-friendly section entrances */
+.stats-item,
+.service-card,
+.project-card,
+.info-item {
+    transform: translateZ(0);
+}
