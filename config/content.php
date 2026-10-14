@@ -126,11 +126,48 @@ return [
 
     'projects' => [
 
-        'tag' => 'FEATURED PROJECTS',
+        'tag' => 'portfolio',
 
-        'title' => 'Selected works &',
+        'title' => 'Selected',
 
-        'highlight' => 'creative showcases.',
+        'highlight' => 'projects.',
+
+        'view' => 'View Project',
+
+        'prev' => 'Previous project',
+
+        'next' => 'Next project',
+
+        'items' => [
+
+            [
+                'title' => 'Showcase 01',
+                'image' => 'assets/images/project-1.webp',
+                'alt' => 'Project showcase 1',
+                'width' => 600,
+                'height' => 640,
+                'url' => '',
+            ],
+
+            [
+                'title' => 'Showcase 02',
+                'image' => 'assets/images/project-2.webp',
+                'alt' => 'Project showcase 2',
+                'width' => 600,
+                'height' => 492,
+                'url' => '',
+            ],
+
+            [
+                'title' => 'Showcase 03',
+                'image' => 'assets/images/project-3.webp',
+                'alt' => 'Project showcase 3',
+                'width' => 600,
+                'height' => 656,
+                'url' => '',
+            ],
+
+        ],
 
     ],
 

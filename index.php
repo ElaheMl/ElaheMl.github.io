@@ -28,9 +28,9 @@ $content = require __DIR__ . '/config/content.php';
 
     <link rel="stylesheet" href="assets/css/fonts.css?v=1">
     <link rel="stylesheet" href="assets/css/icons.css?v=1">
-    <link rel="stylesheet" href="assets/css/style.css?v=102">
-    <link rel="stylesheet" href="assets/css/responsive.css?v=4">
-    <link rel="stylesheet" href="assets/css/animition.css?v=4">
+    <link rel="stylesheet" href="assets/css/style.css?v=103">
+    <link rel="stylesheet" href="assets/css/responsive.css?v=5">
+    <link rel="stylesheet" href="assets/css/animition.css?v=5">
 
 </head>
 
@@ -125,7 +125,7 @@ $content = require __DIR__ . '/config/content.php';
 
 
 
-    <script src="assets/js/main.js?v=11" defer></script>
+    <script src="assets/js/main.js?v=12" defer></script>
 
 
 </body>

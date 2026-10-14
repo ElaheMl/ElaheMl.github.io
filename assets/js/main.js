@@ -248,6 +248,363 @@
     }
 })();
 
+
+/* ---------- Projects: swipe dots + shared viewer ---------- */
+(() => {
+    const track = document.getElementById("projectsTrack");
+    if (!track) return;
+
+    const cards = Array.from(track.querySelectorAll(".project-card"));
+    if (!cards.length) return;
+
+    const dotsWrap = document.getElementById("projectsDots");
+    const dots = dotsWrap ? Array.from(dotsWrap.querySelectorAll(".projects-dot")) : [];
+
+    let activeIndex = 0;
+
+    const updateDots = () => {
+        dots.forEach((dot, i) => {
+            dot.classList.toggle("is-active", i === activeIndex);
+        });
+    };
+
+    const getActiveIndex = () => {
+        const trackRect = track.getBoundingClientRect();
+        const centerX = trackRect.left + trackRect.width * 0.35;
+        let closest = 0;
+        let minDist = Infinity;
+        cards.forEach((card, i) => {
+            const r = card.getBoundingClientRect();
+            const dist = Math.abs(r.left - centerX);
+            if (dist < minDist) {
+                minDist = dist;
+                closest = i;
+            }
+        });
+        return closest;
+    };
+
+    const onScroll = () => {
+        const idx = getActiveIndex();
+        if (idx !== activeIndex) {
+            activeIndex = idx;
+            updateDots();
+        }
+    };
+
+    track.addEventListener("scroll", onScroll, { passive: true });
+    updateDots();
+
+    dots.forEach((dot) => {
+        dot.addEventListener("click", () => {
+            const i = Number(dot.dataset.dotIndex);
+            if (Number.isNaN(i) || !cards[i]) return;
+            cards[i].scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+            activeIndex = i;
+            updateDots();
+        });
+    });
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            activeIndex = getActiveIndex();
+            updateDots();
+        }, 120);
+    });
+
+    /* Shared Project Viewer (desktop + mobile) */
+    const viewer = document.getElementById("projectViewer");
+    if (!viewer) return;
+
+    const viewerMedia = document.getElementById("projectViewerMedia");
+    const viewerImg = document.getElementById("projectViewerImage");
+    const viewerTitle = document.getElementById("projectViewerTitle");
+    const viewerDesc = document.getElementById("projectViewerDesc");
+    const viewerLink = document.getElementById("projectViewerLink");
+    const zoomHint = document.getElementById("projectViewerZoomHint");
+    const btnPrev = document.getElementById("projectViewerPrev");
+    const btnNext = document.getElementById("projectViewerNext");
+
+    let viewerIndex = 0;
+
+    /* ---- Zoom state ---- */
+    let scale = 1;
+    let posX = 0;
+    let posY = 0;
+    let isPanning = false;
+    let panStartX = 0;
+    let panStartY = 0;
+    let originX = 0;
+    let originY = 0;
+    let pinchStartDist = 0;
+    let pinchStartScale = 1;
+    let lastTapTime = 0;
+
+    const MIN_SCALE = 1;
+    const MAX_SCALE = 3;
+    const ZOOM_STEP = 0.2;
+
+    const hasLiveUrl = (url) => {
+        if (!url) return false;
+        const v = String(url).trim();
+        return v !== "" && v !== "#";
+    };
+
+    const applyZoomTransform = (animate) => {
+        if (!viewerImg) return;
+        if (!animate) viewerMedia?.classList.add("is-panning");
+        viewerImg.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
+        if (!animate) {
+            requestAnimationFrame(() => viewerMedia?.classList.remove("is-panning"));
+        }
+        viewerMedia?.classList.toggle("is-zoomed", scale > 1.01);
+        if (scale > 1.01) zoomHint?.classList.add("is-hidden");
+    };
+
+    const resetZoom = () => {
+        scale = 1;
+        posX = 0;
+        posY = 0;
+        isPanning = false;
+        if (viewerImg) viewerImg.style.transform = "translate(0px, 0px) scale(1)";
+        viewerMedia?.classList.remove("is-zoomed", "is-panning");
+        zoomHint?.classList.remove("is-hidden");
+    };
+
+    const clampPan = () => {
+        if (!viewerMedia || scale <= 1) {
+            posX = 0;
+            posY = 0;
+            return;
+        }
+        const rect = viewerMedia.getBoundingClientRect();
+        const maxX = ((scale - 1) * rect.width) / 2;
+        const maxY = ((scale - 1) * rect.height) / 2;
+        posX = Math.max(-maxX, Math.min(maxX, posX));
+        posY = Math.max(-maxY, Math.min(maxY, posY));
+    };
+
+    const zoomAt = (clientX, clientY, nextScale) => {
+        if (!viewerMedia) return;
+        const rect = viewerMedia.getBoundingClientRect();
+        const cx = clientX - rect.left - rect.width / 2;
+        const cy = clientY - rect.top - rect.height / 2;
+        const prev = scale;
+        scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, nextScale));
+        if (scale === prev) return;
+        const ratio = scale / prev;
+        posX = cx - (cx - posX) * ratio;
+        posY = cy - (cy - posY) * ratio;
+        if (scale <= 1) {
+            posX = 0;
+            posY = 0;
+        } else {
+            clampPan();
+        }
+        applyZoomTransform(true);
+    };
+
+    const readCard = (card) => ({
+        title: card.dataset.title || "",
+        description: card.dataset.description || "",
+        image: card.dataset.image || "",
+        url: (card.dataset.url || "").trim(),
+    });
+
+    const renderViewer = (index) => {
+        const card = cards[index];
+        if (!card) return;
+        viewerIndex = index;
+        const data = readCard(card);
+        resetZoom();
+
+        if (viewerImg) {
+            viewerImg.style.opacity = "0";
+            viewerImg.src = data.image;
+            viewerImg.alt = data.title;
+            requestAnimationFrame(() => {
+                viewerImg.style.opacity = "1";
+            });
+        }
+        if (viewerTitle) viewerTitle.textContent = data.title;
+        if (viewerDesc) viewerDesc.textContent = data.description;
+
+        if (viewerLink) {
+            if (hasLiveUrl(data.url)) {
+                viewerLink.hidden = false;
+                viewerLink.href = data.url;
+                viewerLink.setAttribute("target", "_blank");
+                viewerLink.setAttribute("rel", "noopener noreferrer");
+            } else {
+                viewerLink.hidden = true;
+                viewerLink.removeAttribute("href");
+                viewerLink.removeAttribute("target");
+                viewerLink.removeAttribute("rel");
+            }
+        }
+    };
+
+    const openViewer = (index) => {
+        if (Number.isNaN(index) || index < 0 || index >= cards.length) return;
+        renderViewer(index);
+        viewer.classList.add("is-open");
+        viewer.setAttribute("aria-hidden", "false");
+        document.body.classList.add("project-viewer-open");
+    };
+
+    const closeViewer = () => {
+        resetZoom();
+        viewer.classList.remove("is-open");
+        viewer.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("project-viewer-open");
+    };
+
+    /* Shared open handler: image + Preview buttons */
+    const handleOpenTrigger = (e) => {
+        const trigger = e.target.closest("[data-open-project]");
+        if (!trigger || !track.contains(trigger)) return;
+        e.preventDefault();
+        e.stopPropagation();
+        const i = Number(trigger.dataset.openProject);
+        if (!Number.isNaN(i)) openViewer(i);
+    };
+
+    track.addEventListener("click", handleOpenTrigger);
+
+    track.addEventListener("keydown", (e) => {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        const trigger = e.target.closest("[data-open-project]");
+        if (!trigger || !track.contains(trigger)) return;
+        e.preventDefault();
+        const i = Number(trigger.dataset.openProject);
+        if (!Number.isNaN(i)) openViewer(i);
+    });
+
+    viewer.querySelectorAll("[data-viewer-close]").forEach((el) => {
+        el.addEventListener("click", closeViewer);
+    });
+
+    btnPrev?.addEventListener("click", () => {
+        renderViewer((viewerIndex - 1 + cards.length) % cards.length);
+    });
+
+    btnNext?.addEventListener("click", () => {
+        renderViewer((viewerIndex + 1) % cards.length);
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (!viewer.classList.contains("is-open")) return;
+        if (e.key === "Escape") {
+            if (scale > 1) {
+                resetZoom();
+                return;
+            }
+            closeViewer();
+        }
+        if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            renderViewer((viewerIndex - 1 + cards.length) % cards.length);
+        }
+        if (e.key === "ArrowRight") {
+            e.preventDefault();
+            renderViewer((viewerIndex + 1) % cards.length);
+        }
+    });
+
+    /* ---- Image zoom interactions ---- */
+    if (viewerMedia) {
+        viewerMedia.addEventListener("dblclick", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scale > 1.01) resetZoom();
+            else zoomAt(e.clientX, e.clientY, 2.2);
+        });
+
+        viewerMedia.addEventListener("wheel", (e) => {
+            if (!viewer.classList.contains("is-open")) return;
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? -ZOOM_STEP : ZOOM_STEP;
+            zoomAt(e.clientX, e.clientY, scale + delta);
+        }, { passive: false });
+
+        viewerMedia.addEventListener("pointerdown", (e) => {
+            if (scale <= 1.01) return;
+            if (e.pointerType === "mouse" && e.button !== 0) return;
+            isPanning = true;
+            panStartX = e.clientX;
+            panStartY = e.clientY;
+            originX = posX;
+            originY = posY;
+            viewerMedia.classList.add("is-panning");
+            viewerMedia.setPointerCapture?.(e.pointerId);
+        });
+
+        viewerMedia.addEventListener("pointermove", (e) => {
+            if (!isPanning || scale <= 1.01) return;
+            posX = originX + (e.clientX - panStartX);
+            posY = originY + (e.clientY - panStartY);
+            clampPan();
+            applyZoomTransform(false);
+        });
+
+        const endPan = (e) => {
+            if (!isPanning) return;
+            isPanning = false;
+            viewerMedia.classList.remove("is-panning");
+            try {
+                viewerMedia.releasePointerCapture?.(e.pointerId);
+            } catch (_) {}
+        };
+
+        viewerMedia.addEventListener("pointerup", endPan);
+        viewerMedia.addEventListener("pointercancel", endPan);
+
+        /* Mobile double-tap */
+        viewerMedia.addEventListener("touchend", (e) => {
+            if (e.touches.length > 0) return;
+            const now = Date.now();
+            if (now - lastTapTime < 280 && e.changedTouches[0]) {
+                e.preventDefault();
+                const t = e.changedTouches[0];
+                if (scale > 1.01) resetZoom();
+                else zoomAt(t.clientX, t.clientY, 2.2);
+                lastTapTime = 0;
+            } else {
+                lastTapTime = now;
+            }
+        }, { passive: false });
+
+        /* Pinch zoom */
+        viewerMedia.addEventListener("touchstart", (e) => {
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                const [a, b] = e.touches;
+                pinchStartDist = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+                pinchStartScale = scale;
+                isPanning = false;
+            }
+        }, { passive: false });
+
+        viewerMedia.addEventListener("touchmove", (e) => {
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                const [a, b] = e.touches;
+                const dist = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+                if (!pinchStartDist) return;
+                const midX = (a.clientX + b.clientX) / 2;
+                const midY = (a.clientY + b.clientY) / 2;
+                zoomAt(midX, midY, pinchStartScale * (dist / pinchStartDist));
+            }
+        }, { passive: false });
+
+        viewerMedia.addEventListener("touchend", (e) => {
+            if (e.touches.length < 2) pinchStartDist = 0;
+        });
+    }
+})();
+
 window.copyPhoneNumber = function copyPhoneNumber() {
     const number = "+989962262487";
     if (navigator.clipboard?.writeText) {
