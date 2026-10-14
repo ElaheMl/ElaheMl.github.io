@@ -22,7 +22,7 @@ return [
 
     'hero' => [
 
-        'badge' => 'SOFTWARE ENGINEER & UI/UX DESIGNER',
+        'badge' => 'SOFTWARE DEVELOPER & UI/UX DESIGNER',
 
         'title' => 'Designing and engineering modern',
 

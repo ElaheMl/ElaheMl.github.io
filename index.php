@@ -18,7 +18,7 @@ $content = require __DIR__ . '/config/content.php';
 
     <title>Elahe Portfolio</title>
 
-    <meta name="description" content="Elahe Maashi — Software Engineer & UI/UX Designer portfolio.">
+    <meta name="description" content="Elahe Maashi — Software DEVELOPER & UI/UX Designer portfolio.">
     <meta name="theme-color" content="#010416">
 
     <link rel="preload" href="assets/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin>

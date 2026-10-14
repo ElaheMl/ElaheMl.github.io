@@ -35,16 +35,74 @@
     overlay?.addEventListener("click", closeMenu);
     mobileLinks.forEach((link) => link.addEventListener("click", closeMenu));
 
+    /* ---------- Scroll Spy: highlight nav item for current section ---------- */
+    // Document order: hero → about → services → skills → projects → contact
+    const sectionIds = ["hero", "about", "services", "skills", "projects", "contact"];
+    const desktopNavLinks = document.querySelectorAll(".nav-link");
+    const mobileNavLinks = document.querySelectorAll(".mobile-links a");
+    let currentActiveId = "hero";
+
+    const setActiveNav = (id) => {
+        if (id === currentActiveId) return;
+        currentActiveId = id;
+        desktopNavLinks.forEach((link) => {
+            const href = link.getAttribute("href") || "";
+            link.classList.toggle("active", href === `#${id}`);
+        });
+        mobileNavLinks.forEach((link) => {
+            const href = link.getAttribute("href") || "";
+            link.classList.toggle("active", href === `#${id}`);
+        });
+    };
+
+    const updateScrollSpy = () => {
+        // Activate as soon as the section enters the upper ~45% of the viewport
+        // (earlier than waiting for it to reach the navbar)
+        const activationY = window.scrollY + Math.max(window.innerHeight * 0.45, 160);
+        let current = sectionIds[0];
+
+        for (const id of sectionIds) {
+            const el = document.getElementById(id);
+            if (!el) continue;
+            if (el.offsetTop <= activationY) {
+                current = id;
+            }
+        }
+
+        // Near the bottom of the page, force the last section (contact)
+        const nearBottom =
+            window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80;
+        if (nearBottom) current = "contact";
+
+        setActiveNav(current);
+    };
+
+    let spyTicking = false;
+    window.addEventListener(
+        "scroll",
+        () => {
+            if (spyTicking) return;
+            spyTicking = true;
+            requestAnimationFrame(() => {
+                updateScrollSpy();
+                spyTicking = false;
+            });
+        },
+        { passive: true }
+    );
+    // Run once on load
+    updateScrollSpy();
+
     /* ---------- Reveal sections (one observer) ---------- */
     const revealMap = [
-        [".stats-section", 0.35],
-        [".about-section", 0.2],
-        [".services-section", 0.25],
-        [".banner-section", 0.3],
-        [".skills-section", 0.25],
-        [".projects-section", 0.2],
-        [".contact-section", 0.3],
-        [".footer-section", 0.1],
+        [".stats-section", 0.25],
+        [".about-section", 0.12],
+        [".services-section", 0.15],
+        [".banner-section", 0.2],
+        [".skills-section", 0.15],
+        [".projects-section", 0.08],
+        [".contact-section", 0.2],
+        [".footer-section", 0.05],
     ];
 
     const runStatsCounter = (section) => {
@@ -83,6 +141,8 @@
     };
 
     if ("IntersectionObserver" in window) {
+        /* Trigger earlier so sections (esp. projects) are already animating
+           by the time the user reaches them — avoids 1–2s blank lag. */
         const io = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
@@ -94,7 +154,7 @@
                     io.unobserve(el);
                 });
             },
-            { rootMargin: "0px 0px -8% 0px", threshold: 0.15 }
+            { rootMargin: "120px 0px 80px 0px", threshold: 0.05 }
         );
 
         revealMap.forEach(([selector]) => {
