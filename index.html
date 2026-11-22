@@ -24,9 +24,15 @@
 
     <link rel="stylesheet" href="assets/css/fonts.css?v=1">
     <link rel="stylesheet" href="assets/css/icons.css?v=1">
-    <link rel="stylesheet" href="assets/css/style.css?v=103">
+    <link rel="stylesheet" href="assets/css/style.css?v=111">
     <link rel="stylesheet" href="assets/css/responsive.css?v=5">
     <link rel="stylesheet" href="assets/css/animition.css?v=5">
+
+    <!-- Zoom hint removed; album styles live in style.css -->
+    <style>
+        .project-viewer-zoom-hint { display: none !important; }
+        .project-viewer-album-counter { display: none !important; }
+    </style>
 
 </head>
 
@@ -1060,12 +1066,12 @@
     <!-- TRACK / GRID -->
     <div class="projects-track" id="projectsTrack">
 
-                <article
+        <article
             class="project-card"
             data-index="0"
             data-title="THE SAM — professional portfolio"
-            data-description="A modern and professional portfolio platform designed for developers, built with clean code and a seamless user experience."
-            data-image="./assets/images/portfolio/project-13.webp"
+            data-description="A modern and professional developer portfolio designed to showcase skills and projects, featuring a clean UI, well-structured code. Built with a responsive layout focused on performance and usability."
+            data-images='["./assets/images/portfolio/project-13.webp", "./assets/images/portfolio/project-13(2).webp"]'
             data-url="https://thesam912.github.io/"
         >
             <div class="project-card-media" data-open-project="0" role="button" tabindex="0" aria-label="Open THE SAM — professional portfolio">
@@ -1080,21 +1086,26 @@
                     >
                 </div>
 
-                <!-- Desktop hover overlay -->
                 <div class="project-card-overlay">
                     <h3 class="project-overlay-title">THE SAM — professional portfolio</h3>
-                    <p class="project-overlay-desc">A modern and professional portfolio platform designed for developers, built with clean code and a seamless user experience.</p>
+                    <p class="project-overlay-desc">A modern and professional developer portfolio designed to showcase skills and projects, featuring a clean UI, well-structured code. Built with a responsive layout focused on performance and usability.</p>
                     <button type="button" class="project-preview-btn" data-open-project="0">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
+
+                <span class="project-album-badge" aria-label="2 photos">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="7" y="7" width="13" height="11" rx="2.2" stroke="currentColor" stroke-width="1.6"/>
+                        <path d="M4.5 15.5V6.8A2.3 2.3 0 0 1 6.8 4.5h10.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                    </svg>
+                </span>
             </div>
 
-            <!-- Mobile info (always visible on mobile) -->
             <div class="project-card-body">
                 <h3 class="project-card-title">THE SAM — professional portfolio</h3>
-                <p class="project-card-desc">A modern and professional portfolio platform designed for developers, built with clean code and a seamless user experience.</p>
+                <p class="project-card-desc">A modern and professional developer portfolio designed to showcase skills and projects, featuring a clean UI, well-structured code. Built with a responsive layout focused on performance and usability.</p>
                 <div class="project-card-actions">
                     <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="0">
                         Preview
@@ -1103,15 +1114,65 @@
                 </div>
             </div>
         </article>
-                <article
+
+        <article
             class="project-card"
             data-index="1"
+            data-title="Ario Store — Beauty &amp; Cosmetics E-commerce Website"
+            data-description="Design and development of a luxury beauty and cosmetics e-commerce website, featuring elegant visuals, refined product categories, and a seamless shopping experience."
+            data-images='["./assets/images/portfolio/project-15(2).webp", "./assets/images/portfolio/project-15.webp"]'
+            data-url="https://froshgahario.ir"
+        >
+            <div class="project-card-media" data-open-project="1" role="button" tabindex="0" aria-label="Open Ario Store — Beauty &amp; Cosmetics E-commerce Website">
+                <div class="project-card-frame">
+                    <img
+                        src="./assets/images/portfolio/project-15(2).webp"
+                        alt="Ario Store — Beauty &amp; Cosmetics E-commerce Website"
+                        width="1200"
+                        height="900"
+                        loading="lazy"
+                        decoding="async"
+                    >
+                </div>
+
+                <div class="project-card-overlay">
+                    <h3 class="project-overlay-title">Ario Store — Beauty &amp; Cosmetics E-commerce Website</h3>
+                    <p class="project-overlay-desc">Design and development of a luxury beauty and cosmetics e-commerce website, featuring elegant visuals, refined product categories, and a seamless shopping experience.</p>
+                    <button type="button" class="project-preview-btn" data-open-project="1">
+                        Preview
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <span class="project-album-badge" aria-label="2 photos">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="7" y="7" width="13" height="11" rx="2.2" stroke="currentColor" stroke-width="1.6"/>
+                        <path d="M4.5 15.5V6.8A2.3 2.3 0 0 1 6.8 4.5h10.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                    </svg>
+                </span>
+            </div>
+
+            <div class="project-card-body">
+                <h3 class="project-card-title">Ario Store — Beauty &amp; Cosmetics E-commerce Website</h3>
+                <p class="project-card-desc">Design and development of a luxury beauty and cosmetics e-commerce website, featuring elegant visuals, refined product categories, and a seamless shopping experience.</p>
+                <div class="project-card-actions">
+                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="1">
+                        Preview
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </article>
+
+        <article
+            class="project-card"
+            data-index="2"
             data-title="Venus Collection — Fashion E-commerce Website"
             data-description="Design and development of a responsive online store for clothing, bags, and shoes, focused on modern visuals and seamless shopping."
-            data-image="./assets/images/portfolio/project-12.webp"
+            data-images='["./assets/images/portfolio/project-12.webp"]'
             data-url="https://venuscolection.ir"
         >
-            <div class="project-card-media" data-open-project="1" role="button" tabindex="0" aria-label="Open Venus Collection — Fashion E-commerce Website">
+            <div class="project-card-media" data-open-project="2" role="button" tabindex="0" aria-label="Open Venus Collection — Fashion E-commerce Website">
                 <div class="project-card-frame">
                     <img
                         src="./assets/images/portfolio/project-12.webp"
@@ -1123,38 +1184,38 @@
                     >
                 </div>
 
-                <!-- Desktop hover overlay -->
                 <div class="project-card-overlay">
                     <h3 class="project-overlay-title">Venus Collection — Fashion E-commerce Website</h3>
                     <p class="project-overlay-desc">Design and development of a responsive online store for clothing, bags, and shoes, focused on modern visuals and seamless shopping.</p>
-                    <button type="button" class="project-preview-btn" data-open-project="1">
+                    <button type="button" class="project-preview-btn" data-open-project="2">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
+
             </div>
 
-            <!-- Mobile info (always visible on mobile) -->
             <div class="project-card-body">
                 <h3 class="project-card-title">Venus Collection — Fashion E-commerce Website</h3>
                 <p class="project-card-desc">Design and development of a responsive online store for clothing, bags, and shoes, focused on modern visuals and seamless shopping.</p>
                 <div class="project-card-actions">
-                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="1">
+                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="2">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
         </article>
-                <article
+
+        <article
             class="project-card"
-            data-index="2"
+            data-index="3"
             data-title="Lumira Beauty — UI/UX Design"
             data-description="UI/UX design for a luxury beauty and skincare e-commerce website, focused on elegant visuals, intuitive product discovery, and a seamless shopping experience."
-            data-image="./assets/images/portfolio/project-2.webp"
+            data-images='["./assets/images/portfolio/project-2.webp"]'
             data-url=""
         >
-            <div class="project-card-media" data-open-project="2" role="button" tabindex="0" aria-label="Open Lumira Beauty — UI/UX Design">
+            <div class="project-card-media" data-open-project="3" role="button" tabindex="0" aria-label="Open Lumira Beauty — UI/UX Design">
                 <div class="project-card-frame">
                     <img
                         src="./assets/images/portfolio/project-2.webp"
@@ -1166,38 +1227,38 @@
                     >
                 </div>
 
-                <!-- Desktop hover overlay -->
                 <div class="project-card-overlay">
                     <h3 class="project-overlay-title">Lumira Beauty — UI/UX Design</h3>
                     <p class="project-overlay-desc">UI/UX design for a luxury beauty and skincare e-commerce website, focused on elegant visuals, intuitive product discovery, and a seamless shopping experience.</p>
-                    <button type="button" class="project-preview-btn" data-open-project="2">
+                    <button type="button" class="project-preview-btn" data-open-project="3">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
+
             </div>
 
-            <!-- Mobile info (always visible on mobile) -->
             <div class="project-card-body">
                 <h3 class="project-card-title">Lumira Beauty — UI/UX Design</h3>
                 <p class="project-card-desc">UI/UX design for a luxury beauty and skincare e-commerce website, focused on elegant visuals, intuitive product discovery, and a seamless shopping experience.</p>
                 <div class="project-card-actions">
-                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="2">
+                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="3">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
         </article>
-                <article
+
+        <article
             class="project-card"
-            data-index="3"
+            data-index="4"
             data-title="Red Luxe Cosmetics — UI/UX Design"
             data-description="UI/UX design for a luxury lipstick and cosmetics e-commerce website, focused on bold visuals, elegant product presentation, and a seamless shopping experience."
-            data-image="./assets/images/portfolio/project-3.webp"
+            data-images='["./assets/images/portfolio/project-3.webp"]'
             data-url=""
         >
-            <div class="project-card-media" data-open-project="3" role="button" tabindex="0" aria-label="Open Red Luxe Cosmetics — UI/UX Design">
+            <div class="project-card-media" data-open-project="4" role="button" tabindex="0" aria-label="Open Red Luxe Cosmetics — UI/UX Design">
                 <div class="project-card-frame">
                     <img
                         src="./assets/images/portfolio/project-3.webp"
@@ -1209,38 +1270,38 @@
                     >
                 </div>
 
-                <!-- Desktop hover overlay -->
                 <div class="project-card-overlay">
                     <h3 class="project-overlay-title">Red Luxe Cosmetics — UI/UX Design</h3>
                     <p class="project-overlay-desc">UI/UX design for a luxury lipstick and cosmetics e-commerce website, focused on bold visuals, elegant product presentation, and a seamless shopping experience.</p>
-                    <button type="button" class="project-preview-btn" data-open-project="3">
+                    <button type="button" class="project-preview-btn" data-open-project="4">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
+
             </div>
 
-            <!-- Mobile info (always visible on mobile) -->
             <div class="project-card-body">
                 <h3 class="project-card-title">Red Luxe Cosmetics — UI/UX Design</h3>
                 <p class="project-card-desc">UI/UX design for a luxury lipstick and cosmetics e-commerce website, focused on bold visuals, elegant product presentation, and a seamless shopping experience.</p>
                 <div class="project-card-actions">
-                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="3">
+                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="4">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
         </article>
-                <article
+
+        <article
             class="project-card"
-            data-index="4"
+            data-index="5"
             data-title="Brew &amp; Bean Café — UI/UX Design"
             data-description="UI/UX design for a café mobile app, featuring seamless coffee ordering, table reservations, secure payments, and a personalized experience wrapped in a warm, premium visual identity."
-            data-image="./assets/images/portfolio/project-1.webp"
+            data-images='["./assets/images/portfolio/project-1.webp"]'
             data-url=""
         >
-            <div class="project-card-media" data-open-project="4" role="button" tabindex="0" aria-label="Open Brew &amp; Bean Café — UI/UX Design">
+            <div class="project-card-media" data-open-project="5" role="button" tabindex="0" aria-label="Open Brew &amp; Bean Café — UI/UX Design">
                 <div class="project-card-frame">
                     <img
                         src="./assets/images/portfolio/project-1.webp"
@@ -1252,38 +1313,38 @@
                     >
                 </div>
 
-                <!-- Desktop hover overlay -->
                 <div class="project-card-overlay">
                     <h3 class="project-overlay-title">Brew &amp; Bean Café — UI/UX Design</h3>
                     <p class="project-overlay-desc">UI/UX design for a café mobile app, featuring seamless coffee ordering, table reservations, secure payments, and a personalized experience wrapped in a warm, premium visual identity.</p>
-                    <button type="button" class="project-preview-btn" data-open-project="4">
+                    <button type="button" class="project-preview-btn" data-open-project="5">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
+
             </div>
 
-            <!-- Mobile info (always visible on mobile) -->
             <div class="project-card-body">
                 <h3 class="project-card-title">Brew &amp; Bean Café — UI/UX Design</h3>
                 <p class="project-card-desc">UI/UX design for a café mobile app, featuring seamless coffee ordering, table reservations, secure payments, and a personalized experience wrapped in a warm, premium visual identity.</p>
                 <div class="project-card-actions">
-                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="4">
+                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="5">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
         </article>
-                <article
+
+        <article
             class="project-card"
-            data-index="5"
+            data-index="6"
             data-title="ChicWove Fashion Store — UI/UX Design"
             data-description="UI/UX design for a fashion e-commerce website, combining elegant visuals, intuitive navigation, and a seamless shopping experience across desktop and mobile."
-            data-image="./assets/images/portfolio/project-8.webp"
+            data-images='["./assets/images/portfolio/project-8.webp"]'
             data-url=""
         >
-            <div class="project-card-media" data-open-project="5" role="button" tabindex="0" aria-label="Open ChicWove Fashion Store — UI/UX Design">
+            <div class="project-card-media" data-open-project="6" role="button" tabindex="0" aria-label="Open ChicWove Fashion Store — UI/UX Design">
                 <div class="project-card-frame">
                     <img
                         src="./assets/images/portfolio/project-8.webp"
@@ -1295,38 +1356,38 @@
                     >
                 </div>
 
-                <!-- Desktop hover overlay -->
                 <div class="project-card-overlay">
                     <h3 class="project-overlay-title">ChicWove Fashion Store — UI/UX Design</h3>
                     <p class="project-overlay-desc">UI/UX design for a fashion e-commerce website, combining elegant visuals, intuitive navigation, and a seamless shopping experience across desktop and mobile.</p>
-                    <button type="button" class="project-preview-btn" data-open-project="5">
+                    <button type="button" class="project-preview-btn" data-open-project="6">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
+
             </div>
 
-            <!-- Mobile info (always visible on mobile) -->
             <div class="project-card-body">
                 <h3 class="project-card-title">ChicWove Fashion Store — UI/UX Design</h3>
                 <p class="project-card-desc">UI/UX design for a fashion e-commerce website, combining elegant visuals, intuitive navigation, and a seamless shopping experience across desktop and mobile.</p>
                 <div class="project-card-actions">
-                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="5">
+                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="6">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
         </article>
-                <article
+
+        <article
             class="project-card"
-            data-index="6"
+            data-index="7"
             data-title="YOGI Pet Shop — UI/UX Design"
             data-description="UI/UX design for a pet shop e-commerce website, combining a playful visual identity, intuitive product browsing, and a seamless shopping experience for pet owners."
-            data-image="./assets/images/portfolio/project-6.webp"
+            data-images='["./assets/images/portfolio/project-6.webp"]'
             data-url=""
         >
-            <div class="project-card-media" data-open-project="6" role="button" tabindex="0" aria-label="Open YOGI Pet Shop — UI/UX Design">
+            <div class="project-card-media" data-open-project="7" role="button" tabindex="0" aria-label="Open YOGI Pet Shop — UI/UX Design">
                 <div class="project-card-frame">
                     <img
                         src="./assets/images/portfolio/project-6.webp"
@@ -1338,38 +1399,38 @@
                     >
                 </div>
 
-                <!-- Desktop hover overlay -->
                 <div class="project-card-overlay">
                     <h3 class="project-overlay-title">YOGI Pet Shop — UI/UX Design</h3>
                     <p class="project-overlay-desc">UI/UX design for a pet shop e-commerce website, combining a playful visual identity, intuitive product browsing, and a seamless shopping experience for pet owners.</p>
-                    <button type="button" class="project-preview-btn" data-open-project="6">
+                    <button type="button" class="project-preview-btn" data-open-project="7">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
+
             </div>
 
-            <!-- Mobile info (always visible on mobile) -->
             <div class="project-card-body">
                 <h3 class="project-card-title">YOGI Pet Shop — UI/UX Design</h3>
                 <p class="project-card-desc">UI/UX design for a pet shop e-commerce website, combining a playful visual identity, intuitive product browsing, and a seamless shopping experience for pet owners.</p>
                 <div class="project-card-actions">
-                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="6">
+                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="7">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
         </article>
-                <article
+
+        <article
             class="project-card"
-            data-index="7"
+            data-index="8"
             data-title="Luxeora Accessories Store — UI/UX Design"
             data-description="UI/UX design for a luxury accessories e-commerce website, focused on elegant visuals, intuitive navigation, and a seamless shopping experience across desktop and mobile."
-            data-image="./assets/images/portfolio/project-4.webp"
+            data-images='["./assets/images/portfolio/project-4.webp"]'
             data-url=""
         >
-            <div class="project-card-media" data-open-project="7" role="button" tabindex="0" aria-label="Open Luxeora Accessories Store — UI/UX Design">
+            <div class="project-card-media" data-open-project="8" role="button" tabindex="0" aria-label="Open Luxeora Accessories Store — UI/UX Design">
                 <div class="project-card-frame">
                     <img
                         src="./assets/images/portfolio/project-4.webp"
@@ -1381,38 +1442,38 @@
                     >
                 </div>
 
-                <!-- Desktop hover overlay -->
                 <div class="project-card-overlay">
                     <h3 class="project-overlay-title">Luxeora Accessories Store — UI/UX Design</h3>
                     <p class="project-overlay-desc">UI/UX design for a luxury accessories e-commerce website, focused on elegant visuals, intuitive navigation, and a seamless shopping experience across desktop and mobile.</p>
-                    <button type="button" class="project-preview-btn" data-open-project="7">
+                    <button type="button" class="project-preview-btn" data-open-project="8">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
+
             </div>
 
-            <!-- Mobile info (always visible on mobile) -->
             <div class="project-card-body">
                 <h3 class="project-card-title">Luxeora Accessories Store — UI/UX Design</h3>
                 <p class="project-card-desc">UI/UX design for a luxury accessories e-commerce website, focused on elegant visuals, intuitive navigation, and a seamless shopping experience across desktop and mobile.</p>
                 <div class="project-card-actions">
-                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="7">
+                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="8">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
         </article>
-                <article
+
+        <article
             class="project-card"
-            data-index="8"
+            data-index="9"
             data-title="Zaferan Restaurant — Web Design"
             data-description="A modern restaurant website featuring bold visuals and a seamless user experience.UI/UX design for a luxury accessories e-commerce website, focused on elegant visuals, intuitive navigation, and a seamless shopping experience across desktop and mobile."
-            data-image="./assets/images/portfolio/project-7.webp"
+            data-images='["./assets/images/portfolio/project-7.webp"]'
             data-url=""
         >
-            <div class="project-card-media" data-open-project="8" role="button" tabindex="0" aria-label="Open Zaferan Restaurant — Web Design">
+            <div class="project-card-media" data-open-project="9" role="button" tabindex="0" aria-label="Open Zaferan Restaurant — Web Design">
                 <div class="project-card-frame">
                     <img
                         src="./assets/images/portfolio/project-7.webp"
@@ -1424,38 +1485,38 @@
                     >
                 </div>
 
-                <!-- Desktop hover overlay -->
                 <div class="project-card-overlay">
                     <h3 class="project-overlay-title">Zaferan Restaurant — Web Design</h3>
                     <p class="project-overlay-desc">A modern restaurant website featuring bold visuals and a seamless user experience.UI/UX design for a luxury accessories e-commerce website, focused on elegant visuals, intuitive navigation, and a seamless shopping experience across desktop and mobile.</p>
-                    <button type="button" class="project-preview-btn" data-open-project="8">
+                    <button type="button" class="project-preview-btn" data-open-project="9">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
+
             </div>
 
-            <!-- Mobile info (always visible on mobile) -->
             <div class="project-card-body">
                 <h3 class="project-card-title">Zaferan Restaurant — Web Design</h3>
                 <p class="project-card-desc">A modern restaurant website featuring bold visuals and a seamless user experience.UI/UX design for a luxury accessories e-commerce website, focused on elegant visuals, intuitive navigation, and a seamless shopping experience across desktop and mobile.</p>
                 <div class="project-card-actions">
-                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="8">
+                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="9">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
         </article>
-                <article
+
+        <article
             class="project-card"
-            data-index="9"
+            data-index="10"
             data-title="Language Learning Platform — UI/UX Design"
             data-description="UI/UX design for a language learning platform, focused on intuitive navigation, engaging educational experiences, and a seamless journey across multiple languages and courses."
-            data-image="./assets/images/portfolio/project-10.webp"
+            data-images='["./assets/images/portfolio/project-10.webp"]'
             data-url=""
         >
-            <div class="project-card-media" data-open-project="9" role="button" tabindex="0" aria-label="Open Language Learning Platform — UI/UX Design">
+            <div class="project-card-media" data-open-project="10" role="button" tabindex="0" aria-label="Open Language Learning Platform — UI/UX Design">
                 <div class="project-card-frame">
                     <img
                         src="./assets/images/portfolio/project-10.webp"
@@ -1467,38 +1528,38 @@
                     >
                 </div>
 
-                <!-- Desktop hover overlay -->
                 <div class="project-card-overlay">
                     <h3 class="project-overlay-title">Language Learning Platform — UI/UX Design</h3>
                     <p class="project-overlay-desc">UI/UX design for a language learning platform, focused on intuitive navigation, engaging educational experiences, and a seamless journey across multiple languages and courses.</p>
-                    <button type="button" class="project-preview-btn" data-open-project="9">
+                    <button type="button" class="project-preview-btn" data-open-project="10">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
+
             </div>
 
-            <!-- Mobile info (always visible on mobile) -->
             <div class="project-card-body">
                 <h3 class="project-card-title">Language Learning Platform — UI/UX Design</h3>
                 <p class="project-card-desc">UI/UX design for a language learning platform, focused on intuitive navigation, engaging educational experiences, and a seamless journey across multiple languages and courses.</p>
                 <div class="project-card-actions">
-                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="9">
+                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="10">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
         </article>
-                <article
+
+        <article
             class="project-card"
-            data-index="10"
+            data-index="11"
             data-title="Nestoria Real Estate — UI/UX Design"
             data-description="UI/UX design for a modern real estate platform, focused on premium property discovery, intuitive search experiences, and elegant, user-centered interfaces."
-            data-image="./assets/images/portfolio/project-5.webp"
+            data-images='["./assets/images/portfolio/project-5.webp"]'
             data-url=""
         >
-            <div class="project-card-media" data-open-project="10" role="button" tabindex="0" aria-label="Open Nestoria Real Estate — UI/UX Design">
+            <div class="project-card-media" data-open-project="11" role="button" tabindex="0" aria-label="Open Nestoria Real Estate — UI/UX Design">
                 <div class="project-card-frame">
                     <img
                         src="./assets/images/portfolio/project-5.webp"
@@ -1510,38 +1571,38 @@
                     >
                 </div>
 
-                <!-- Desktop hover overlay -->
                 <div class="project-card-overlay">
                     <h3 class="project-overlay-title">Nestoria Real Estate — UI/UX Design</h3>
                     <p class="project-overlay-desc">UI/UX design for a modern real estate platform, focused on premium property discovery, intuitive search experiences, and elegant, user-centered interfaces.</p>
-                    <button type="button" class="project-preview-btn" data-open-project="10">
+                    <button type="button" class="project-preview-btn" data-open-project="11">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
+
             </div>
 
-            <!-- Mobile info (always visible on mobile) -->
             <div class="project-card-body">
                 <h3 class="project-card-title">Nestoria Real Estate — UI/UX Design</h3>
                 <p class="project-card-desc">UI/UX design for a modern real estate platform, focused on premium property discovery, intuitive search experiences, and elegant, user-centered interfaces.</p>
                 <div class="project-card-actions">
-                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="10">
+                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="11">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
         </article>
-                <article
+
+        <article
             class="project-card"
-            data-index="11"
+            data-index="12"
             data-title="Nafas Ara — Yoga Studio Website Design"
             data-description="UI/UX design for a yoga and wellness website, focused on a calming visual identity, elegant layouts, and an intuitive experience for discovering yoga classes, exploring programs, and connecting with instructors.20:11"
-            data-image="./assets/images/portfolio/project-9.webp"
+            data-images='["./assets/images/portfolio/project-9.webp"]'
             data-url=""
         >
-            <div class="project-card-media" data-open-project="11" role="button" tabindex="0" aria-label="Open Nafas Ara — Yoga Studio Website Design">
+            <div class="project-card-media" data-open-project="12" role="button" tabindex="0" aria-label="Open Nafas Ara — Yoga Studio Website Design">
                 <div class="project-card-frame">
                     <img
                         src="./assets/images/portfolio/project-9.webp"
@@ -1553,38 +1614,38 @@
                     >
                 </div>
 
-                <!-- Desktop hover overlay -->
                 <div class="project-card-overlay">
                     <h3 class="project-overlay-title">Nafas Ara — Yoga Studio Website Design</h3>
                     <p class="project-overlay-desc">UI/UX design for a yoga and wellness website, focused on a calming visual identity, elegant layouts, and an intuitive experience for discovering yoga classes, exploring programs, and connecting with instructors.20:11</p>
-                    <button type="button" class="project-preview-btn" data-open-project="11">
+                    <button type="button" class="project-preview-btn" data-open-project="12">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
+
             </div>
 
-            <!-- Mobile info (always visible on mobile) -->
             <div class="project-card-body">
                 <h3 class="project-card-title">Nafas Ara — Yoga Studio Website Design</h3>
                 <p class="project-card-desc">UI/UX design for a yoga and wellness website, focused on a calming visual identity, elegant layouts, and an intuitive experience for discovering yoga classes, exploring programs, and connecting with instructors.20:11</p>
                 <div class="project-card-actions">
-                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="11">
+                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="12">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
         </article>
-                <article
+
+        <article
             class="project-card"
-            data-index="12"
+            data-index="13"
             data-title="Digiseat — Luxury Watch E-commerce UI/UX"
             data-description="A premium e-commerce experience for luxury watches, featuring a sophisticated green-and-gold visual identity, elegant product showcases, and a responsive interface designed to enhance product discovery and online shopping."
-            data-image="./assets/images/portfolio/project-11.webp"
+            data-images='["./assets/images/portfolio/project-11.webp"]'
             data-url=""
         >
-            <div class="project-card-media" data-open-project="12" role="button" tabindex="0" aria-label="Open Digiseat — Luxury Watch E-commerce UI/UX">
+            <div class="project-card-media" data-open-project="13" role="button" tabindex="0" aria-label="Open Digiseat — Luxury Watch E-commerce UI/UX">
                 <div class="project-card-frame">
                     <img
                         src="./assets/images/portfolio/project-11.webp"
@@ -1596,30 +1657,31 @@
                     >
                 </div>
 
-                <!-- Desktop hover overlay -->
                 <div class="project-card-overlay">
                     <h3 class="project-overlay-title">Digiseat — Luxury Watch E-commerce UI/UX</h3>
                     <p class="project-overlay-desc">A premium e-commerce experience for luxury watches, featuring a sophisticated green-and-gold visual identity, elegant product showcases, and a responsive interface designed to enhance product discovery and online shopping.</p>
-                    <button type="button" class="project-preview-btn" data-open-project="12">
+                    <button type="button" class="project-preview-btn" data-open-project="13">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
+
             </div>
 
-            <!-- Mobile info (always visible on mobile) -->
             <div class="project-card-body">
                 <h3 class="project-card-title">Digiseat — Luxury Watch E-commerce UI/UX</h3>
                 <p class="project-card-desc">A premium e-commerce experience for luxury watches, featuring a sophisticated green-and-gold visual identity, elegant product showcases, and a responsive interface designed to enhance product discovery and online shopping.</p>
                 <div class="project-card-actions">
-                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="12">
+                    <button type="button" class="project-preview-btn project-preview-btn--mobile" data-open-project="13">
                         Preview
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
         </article>
+
         
+
     </div>
 
     <!-- Dot pagination (mobile only) -->
@@ -1702,6 +1764,12 @@
             data-dot-index="12"
             aria-label="Go to project 13"
         ></button>
+                <button
+            type="button"
+            class="projects-dot"
+            data-dot-index="13"
+            aria-label="Go to project 14"
+        ></button>
             </div>
 
 </section>
@@ -1721,9 +1789,7 @@
         <div class="project-viewer-content">
             <div class="project-viewer-media" id="projectViewerMedia">
                 <img src="" alt="" id="projectViewerImage" width="1200" height="900" draggable="false">
-                <span class="project-viewer-zoom-hint" id="projectViewerZoomHint" aria-hidden="true">
-                    Double-click or pinch to zoom
-                </span>
+                <div class="project-viewer-album-thumbs" id="projectViewerAlbumThumbs" hidden aria-hidden="true"></div>
             </div>
             <div class="project-viewer-info">
                 <div class="project-viewer-info-top">

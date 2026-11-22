@@ -2,90 +2,132 @@
 
 $content = require __DIR__ . '/../config/content.php';
 
-/* url خالی یا '#' = پروژه آنلاین نیست → دکمه Visit Project مخفی می‌شود */
+/* url خالی یا '#' = پروژه آنلاین نیست → دکمه Visit Project مخفی می‌شود
+   images: آرایه عکس‌ها (حداقل یکی). برای آلبوم چندتایی فقط سوایپ؛ فلش اضافه نمی‌شود. */
 $projects = [
     [
         'title'       => 'THE SAM — professional portfolio',
-        'description' => 'A modern and professional portfolio platform designed for developers, built with clean code and a seamless user experience.',
-        'image'       => './assets/images/portfolio/project-13.webp',
-        'url'         => 'https://thesam912.github.io/', 
+        'description' => 'A modern and professional developer portfolio designed to showcase skills and projects, featuring a clean UI, well-structured code. Built with a responsive layout focused on performance and usability.',
+        'images'      => [
+            './assets/images/portfolio/project-13.webp',
+            './assets/images/portfolio/project-13(2).webp',
+        ],
+        'url'         => 'https://thesam912.github.io/',
+    ],
+    [
+        'title'       => 'Ario Store — Beauty & Cosmetics E-commerce Website',
+        'description' => 'Design and development of a luxury beauty and cosmetics e-commerce website, featuring elegant visuals, refined product categories, and a seamless shopping experience.',
+        'images'      => [
+            './assets/images/portfolio/project-15(2).webp',
+            './assets/images/portfolio/project-15.webp',
+        ],
+        'url'         => 'https://froshgahario.ir',
     ],
     [
         'title'       => 'Venus Collection — Fashion E-commerce Website',
         'description' => 'Design and development of a responsive online store for clothing, bags, and shoes, focused on modern visuals and seamless shopping.',
-        'image'       => './assets/images/portfolio/project-12.webp',
-        'url'         => 'https://venuscolection.ir', // لینک واقعی پروژه
+        'images'      => [
+            './assets/images/portfolio/project-12.webp',
+        ],
+        'url'         => 'https://venuscolection.ir',
     ],
     [
         'title'       => 'Lumira Beauty — UI/UX Design',
         'description' => 'UI/UX design for a luxury beauty and skincare e-commerce website, focused on elegant visuals, intuitive product discovery, and a seamless shopping experience.',
-        'image'       => './assets/images/portfolio/project-2.webp',
+        'images'      => [
+            './assets/images/portfolio/project-2.webp',
+        ],
         'url'         => '',
     ],
     [
         'title'       => 'Red Luxe Cosmetics — UI/UX Design',
         'description' => 'UI/UX design for a luxury lipstick and cosmetics e-commerce website, focused on bold visuals, elegant product presentation, and a seamless shopping experience.',
-        'image'       => './assets/images/portfolio/project-3.webp',
+        'images'      => [
+            './assets/images/portfolio/project-3.webp',
+        ],
         'url'         => '',
     ],
     [
         'title'       => 'Brew & Bean Café — UI/UX Design',
         'description' => 'UI/UX design for a café mobile app, featuring seamless coffee ordering, table reservations, secure payments, and a personalized experience wrapped in a warm, premium visual identity.',
-        'image'       => './assets/images/portfolio/project-1.webp',
+        'images'      => [
+            './assets/images/portfolio/project-1.webp',
+        ],
         'url'         => '',
     ],
     [
         'title'       => 'ChicWove Fashion Store — UI/UX Design',
         'description' => 'UI/UX design for a fashion e-commerce website, combining elegant visuals, intuitive navigation, and a seamless shopping experience across desktop and mobile.',
-        'image'       => './assets/images/portfolio/project-8.webp',
+        'images'      => [
+            './assets/images/portfolio/project-8.webp',
+        ],
         'url'         => '',
     ],
     [
         'title'       => 'YOGI Pet Shop — UI/UX Design',
         'description' => 'UI/UX design for a pet shop e-commerce website, combining a playful visual identity, intuitive product browsing, and a seamless shopping experience for pet owners.',
-        'image'       => './assets/images/portfolio/project-6.webp',
+        'images'      => [
+            './assets/images/portfolio/project-6.webp',
+        ],
         'url'         => '',
     ],
     [
         'title'       => 'Luxeora Accessories Store — UI/UX Design',
         'description' => 'UI/UX design for a luxury accessories e-commerce website, focused on elegant visuals, intuitive navigation, and a seamless shopping experience across desktop and mobile.',
-        'image'       => './assets/images/portfolio/project-4.webp',
+        'images'      => [
+            './assets/images/portfolio/project-4.webp',
+        ],
         'url'         => '',
     ],
     [
         'title'       => 'Zaferan Restaurant — Web Design',
         'description' => 'A modern restaurant website featuring bold visuals and a seamless user experience.UI/UX design for a luxury accessories e-commerce website, focused on elegant visuals, intuitive navigation, and a seamless shopping experience across desktop and mobile.',
-        'image'       => './assets/images/portfolio/project-7.webp',
+        'images'      => [
+            './assets/images/portfolio/project-7.webp',
+        ],
         'url'         => '',
     ],
     [
         'title'       => 'Language Learning Platform — UI/UX Design',
         'description' => 'UI/UX design for a language learning platform, focused on intuitive navigation, engaging educational experiences, and a seamless journey across multiple languages and courses.',
-        'image'       => './assets/images/portfolio/project-10.webp',
+        'images'      => [
+            './assets/images/portfolio/project-10.webp',
+        ],
         'url'         => '',
     ],
     [
         'title'       => 'Nestoria Real Estate — UI/UX Design',
         'description' => 'UI/UX design for a modern real estate platform, focused on premium property discovery, intuitive search experiences, and elegant, user-centered interfaces.',
-        'image'       => './assets/images/portfolio/project-5.webp',
+        'images'      => [
+            './assets/images/portfolio/project-5.webp',
+        ],
         'url'         => '',
     ],
     [
         'title'       => 'Nafas Ara — Yoga Studio Website Design',
         'description' => 'UI/UX design for a yoga and wellness website, focused on a calming visual identity, elegant layouts, and an intuitive experience for discovering yoga classes, exploring programs, and connecting with instructors.20:11',
-        'image'       => './assets/images/portfolio/project-9.webp',
+        'images'      => [
+            './assets/images/portfolio/project-9.webp',
+        ],
         'url'         => '',
     ],
     [
         'title'       => 'Digiseat — Luxury Watch E-commerce UI/UX',
         'description' => 'A premium e-commerce experience for luxury watches, featuring a sophisticated green-and-gold visual identity, elegant product showcases, and a responsive interface designed to enhance product discovery and online shopping.',
-        'image'       => './assets/images/portfolio/project-11.webp',
+        'images'      => [
+            './assets/images/portfolio/project-11.webp',
+        ],
         'url'         => '',
     ],
-    
 ];
 
 ?>
+
+<style>
+/* Fallback if style.css not loaded; primary styles are in style.css */
+.project-viewer-zoom-hint { display: none !important; }
+.project-viewer-album-counter { display: none !important; }
+</style>
 
 <section id="projects" class="projects-section">
 
@@ -119,19 +161,23 @@ $projects = [
     <!-- TRACK / GRID -->
     <div class="projects-track" id="projectsTrack">
 
-        <?php foreach ($projects as $i => $project): ?>
+        <?php foreach ($projects as $i => $project):
+            $thumb = $project['images'][0] ?? '';
+            $imagesJson = htmlspecialchars(json_encode($project['images'], JSON_UNESCAPED_SLASHES), ENT_QUOTES);
+            $imageCount = count($project['images']);
+        ?>
         <article
             class="project-card"
             data-index="<?= (int) $i ?>"
             data-title="<?= htmlspecialchars($project['title'], ENT_QUOTES) ?>"
             data-description="<?= htmlspecialchars($project['description'], ENT_QUOTES) ?>"
-            data-image="<?= htmlspecialchars($project['image'], ENT_QUOTES) ?>"
+            data-images="<?= $imagesJson ?>"
             data-url="<?= htmlspecialchars($project['url'], ENT_QUOTES) ?>"
         >
             <div class="project-card-media" data-open-project="<?= (int) $i ?>" role="button" tabindex="0" aria-label="Open <?= htmlspecialchars($project['title'], ENT_QUOTES) ?>">
                 <div class="project-card-frame">
                     <img
-                        src="<?= htmlspecialchars($project['image']) ?>"
+                        src="<?= htmlspecialchars($thumb) ?>"
                         alt="<?= htmlspecialchars($project['title']) ?>"
                         width="1200"
                         height="900"
@@ -149,6 +195,16 @@ $projects = [
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
+
+                <?php if ($imageCount > 1): ?>
+                <!-- Badge: multi-photo indicator (after overlay so it stays on top) -->
+                <span class="project-album-badge" aria-label="<?= (int) $imageCount ?> photos">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="7" y="7" width="13" height="11" rx="2.2" stroke="currentColor" stroke-width="1.6"/>
+                        <path d="M4.5 15.5V6.8A2.3 2.3 0 0 1 6.8 4.5h10.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <?php endif; ?>
             </div>
 
             <!-- Mobile info (always visible on mobile) -->
@@ -196,9 +252,8 @@ $projects = [
         <div class="project-viewer-content">
             <div class="project-viewer-media" id="projectViewerMedia">
                 <img src="" alt="" id="projectViewerImage" width="1200" height="900" draggable="false">
-                <span class="project-viewer-zoom-hint" id="projectViewerZoomHint" aria-hidden="true">
-                    Double-click or pinch to zoom
-                </span>
+                <!-- Album thumbs (only when multi-image) — clickable, no arrows -->
+                <div class="project-viewer-album-thumbs" id="projectViewerAlbumThumbs" hidden aria-hidden="true"></div>
             </div>
             <div class="project-viewer-info">
                 <div class="project-viewer-info-top">

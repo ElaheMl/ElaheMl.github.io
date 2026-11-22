@@ -2671,28 +2671,115 @@ ul{
 }
 
 .project-viewer-zoom-hint{
-    position: absolute;
-    left: 50%;
-    bottom: 14px;
-    transform: translateX(-50%);
-    z-index: 2;
-    padding: 6px 12px;
-    border-radius: 999px;
-    background: rgba(3,8,22,.72);
-    border: 1px solid rgba(96,165,250,.22);
-    color: #94A3B8;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: .03em;
-    pointer-events: none;
-    opacity: .85;
-    transition: opacity .35s ease;
-    white-space: nowrap;
+    display: none !important;
 }
 
-.project-viewer-media.is-zoomed .project-viewer-zoom-hint,
-.project-viewer-zoom-hint.is-hidden{
-    opacity: 0;
+/* Album badge on project cards — same language as .project-preview-btn */
+.project-card-media{
+    position: relative;
+}
+.project-album-badge{
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 50;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: 9px;
+    border: 1px solid rgba(96, 165, 250, 0.4);
+    background: rgba(2, 6, 18, 0.9);
+    color: #7DD3FC;
+    pointer-events: none;
+    user-select: none;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.5),
+        0 0 10px rgba(37, 99, 235, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease,
+        background .3s ease;
+}
+.project-album-badge svg{
+    width: 15px;
+    height: 15px;
+    color: #7DD3FC;
+    filter: drop-shadow(0 0 4px rgba(125, 211, 252, 0.4));
+}
+.project-album-badge span{
+    display: none;
+}
+.project-card:hover .project-album-badge{
+    border-color: rgba(96, 165, 250, 0.6);
+    background: rgba(1, 4, 14, 0.95);
+    transform: translateY(-1px);
+    box-shadow:
+        0 6px 16px rgba(0, 0, 0, 0.55),
+        0 0 14px rgba(37, 99, 235, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+.project-card:hover .project-album-badge svg{
+    color: #A5F3FC;
+    filter: drop-shadow(0 0 5px rgba(125, 211, 252, 0.5));
+}
+
+/* Album thumbs inside viewer — vertical, top-left */
+.project-viewer-album-thumbs{
+    display: none;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    bottom: auto;
+    right: auto;
+    transform: none;
+    z-index: 6;
+    flex-direction: column;
+    gap: 8px;
+    padding: 6px;
+    border-radius: 10px;
+    background: rgba(3, 8, 22, 0.72);
+    border: 1px solid rgba(96, 165, 250, 0.22);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+.project-viewer-album-thumbs.is-visible{
+    display: flex;
+}
+.project-viewer-album-thumb{
+    width: 52px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    background: rgba(1, 4, 22, 0.6);
+    transition: border-color .25s ease, box-shadow .25s ease, opacity .25s ease;
+    opacity: 0.7;
+}
+.project-viewer-album-thumb img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+}
+.project-viewer-album-thumb:hover{
+    opacity: 1;
+    border-color: rgba(96, 165, 250, 0.55);
+}
+.project-viewer-album-thumb.is-active{
+    opacity: 1;
+    border-color: rgba(37, 99, 235, 0.85);
+    box-shadow: 0 0 12px rgba(37, 99, 235, 0.45);
 }
 
 .project-viewer-link[hidden]{
@@ -2764,8 +2851,8 @@ ul{
 
 .project-viewer-close{
     position: absolute;
-    top: 0;
-    right: 58px;
+    top: 16px;
+    right: 72px;
     z-index: 3;
     width: 40px;
     height: 40px;
@@ -2778,13 +2865,14 @@ ul{
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background .3s ease, border-color .3s ease, color .3s ease;
+    transition: background .3s ease, border-color .3s ease, color .3s ease, box-shadow .3s ease;
 }
 
 .project-viewer-close:hover{
-    background: rgba(37,99,235,.22);
-    border-color: rgba(96,165,250,.4);
-    color: #fff;
+    background: rgba(3,8,22,.92);
+    border-color: rgba(37,99,235,.9);
+    color: #E2E8F0;
+    box-shadow: 0 0 0 1px rgba(37,99,235,.4);
 }
 
 .project-viewer-nav{

@@ -384,10 +384,20 @@
     const viewerDesc = document.getElementById("projectViewerDesc");
     const viewerLink = document.getElementById("projectViewerLink");
     const zoomHint = document.getElementById("projectViewerZoomHint");
+    const albumCounter = document.getElementById("projectViewerAlbumCounter");
+    const albumThumbs = document.getElementById("projectViewerAlbumThumbs");
     const btnPrev = document.getElementById("projectViewerPrev");
     const btnNext = document.getElementById("projectViewerNext");
 
     let viewerIndex = 0;
+    let albumIndex = 0; // index inside current project's images
+    let currentImages = [];
+
+    // permanently hide legacy zoom hint
+    if (zoomHint) {
+        zoomHint.hidden = true;
+        zoomHint.style.display = "none";
+    }
 
     /* ---- Zoom state ---- */
     let scale = 1;
@@ -466,28 +476,118 @@
         applyZoomTransform(true);
     };
 
-    const readCard = (card) => ({
-        title: card.dataset.title || "",
-        description: card.dataset.description || "",
-        image: card.dataset.image || "",
-        url: (card.dataset.url || "").trim(),
-    });
+    const parseImages = (raw) => {
+        if (!raw) return [];
+        try {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) {
+                return parsed.map((s) => String(s).trim()).filter(Boolean);
+            }
+        } catch (_) {}
+        // fallback: single path or comma-separated
+        return String(raw)
+            .split(",")
+            .map((s) => s.trim())
+            .filter(Boolean);
+    };
+
+    const readCard = (card) => {
+        const images = parseImages(card.dataset.images || card.dataset.image || "");
+        return {
+            title: card.dataset.title || "",
+            description: card.dataset.description || "",
+            images,
+            url: (card.dataset.url || "").trim(),
+        };
+    };
+
+    const updateAlbumThumbs = () => {
+        if (!albumThumbs) return;
+        if (currentImages.length < 2) {
+            albumThumbs.innerHTML = "";
+            albumThumbs.hidden = true;
+            albumThumbs.classList.remove("is-visible");
+            albumThumbs.setAttribute("aria-hidden", "true");
+            if (albumCounter) {
+                albumCounter.hidden = true;
+                albumCounter.setAttribute("aria-hidden", "true");
+            }
+            return;
+        }
+
+        albumThumbs.innerHTML = "";
+        currentImages.forEach((src, i) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "project-viewer-album-thumb" + (i === albumIndex ? " is-active" : "");
+            btn.setAttribute("aria-label", `Photo ${i + 1}`);
+            btn.dataset.albumIndex = String(i);
+            const img = document.createElement("img");
+            img.src = src;
+            img.alt = "";
+            img.loading = "lazy";
+            img.draggable = false;
+            btn.appendChild(img);
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                showAlbumImage(i);
+                resetZoom();
+            });
+            albumThumbs.appendChild(btn);
+        });
+
+        albumThumbs.hidden = false;
+        albumThumbs.classList.add("is-visible");
+        albumThumbs.setAttribute("aria-hidden", "false");
+        if (albumCounter) {
+            albumCounter.hidden = true;
+            albumCounter.setAttribute("aria-hidden", "true");
+        }
+    };
+
+    const showAlbumImage = (imgIndex, animate = true) => {
+        if (!currentImages.length || !viewerImg) return;
+        albumIndex = ((imgIndex % currentImages.length) + currentImages.length) % currentImages.length;
+        const src = currentImages[albumIndex];
+        if (animate) viewerImg.style.opacity = "0";
+        viewerImg.src = src;
+        if (animate) {
+            requestAnimationFrame(() => {
+                viewerImg.style.opacity = "1";
+            });
+        }
+        if (albumThumbs) {
+            albumThumbs.querySelectorAll(".project-viewer-album-thumb").forEach((el, i) => {
+                el.classList.toggle("is-active", i === albumIndex);
+            });
+        }
+    };
 
     const renderViewer = (index) => {
         const card = cards[index];
         if (!card) return;
         viewerIndex = index;
         const data = readCard(card);
+        currentImages = data.images.length ? data.images : [];
+        albumIndex = 0;
         resetZoom();
 
         if (viewerImg) {
             viewerImg.style.opacity = "0";
-            viewerImg.src = data.image;
-            viewerImg.alt = data.title;
+            if (currentImages.length) {
+                viewerImg.src = currentImages[0];
+                viewerImg.alt = data.title;
+            } else {
+                viewerImg.removeAttribute("src");
+                viewerImg.alt = "";
+            }
             requestAnimationFrame(() => {
                 viewerImg.style.opacity = "1";
             });
         }
+        updateAlbumThumbs();
+
         if (viewerTitle) viewerTitle.textContent = data.title;
         if (viewerDesc) viewerDesc.textContent = data.description;
 
@@ -661,6 +761,78 @@
 
         viewerMedia.addEventListener("touchend", (e) => {
             if (e.touches.length < 2) pinchStartDist = 0;
+        });
+
+        /* ---- Album swipe (no arrows) — only when multi-image & not zoomed ---- */
+        let albumTouchX = 0;
+        let albumTouchY = 0;
+        let albumSwiping = false;
+
+        viewerMedia.addEventListener(
+            "touchstart",
+            (e) => {
+                if (e.touches.length !== 1 || scale > 1.01 || currentImages.length < 2) {
+                    albumSwiping = false;
+                    return;
+                }
+                albumTouchX = e.touches[0].clientX;
+                albumTouchY = e.touches[0].clientY;
+                albumSwiping = true;
+            },
+            { passive: true }
+        );
+
+        viewerMedia.addEventListener(
+            "touchend",
+            (e) => {
+                if (!albumSwiping || scale > 1.01 || currentImages.length < 2) {
+                    albumSwiping = false;
+                    return;
+                }
+                albumSwiping = false;
+                const t = e.changedTouches[0];
+                if (!t) return;
+                const dx = t.clientX - albumTouchX;
+                const dy = t.clientY - albumTouchY;
+                // horizontal swipe dominant
+                if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+                if (dx < 0) {
+                    // swipe left → next image in album
+                    showAlbumImage(albumIndex + 1);
+                } else {
+                    // swipe right → previous image in album
+                    showAlbumImage(albumIndex - 1);
+                }
+                resetZoom();
+            },
+            { passive: true }
+        );
+
+        // Mouse drag swipe for desktop (optional, same threshold)
+        let albumMouseX = 0;
+        let albumMouseDown = false;
+
+        viewerMedia.addEventListener("mousedown", (e) => {
+            if (e.button !== 0 || scale > 1.01 || currentImages.length < 2) return;
+            albumMouseX = e.clientX;
+            albumMouseDown = true;
+        });
+
+        viewerMedia.addEventListener("mouseup", (e) => {
+            if (!albumMouseDown || scale > 1.01 || currentImages.length < 2) {
+                albumMouseDown = false;
+                return;
+            }
+            albumMouseDown = false;
+            const dx = e.clientX - albumMouseX;
+            if (Math.abs(dx) < 60) return;
+            if (dx < 0) showAlbumImage(albumIndex + 1);
+            else showAlbumImage(albumIndex - 1);
+            resetZoom();
+        });
+
+        viewerMedia.addEventListener("mouseleave", () => {
+            albumMouseDown = false;
         });
     }
 })();
